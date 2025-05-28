@@ -1,0 +1,65 @@
+Lente:
+https://tse4.mm.bing.net/th?id=OIP.EaUp-egMe_gd2Ej0l2zWDgHaFo&pid=Api
+https://tse3.mm.bing.net/th?id=OIP.NgxxT8FDJslqLQQce1YjOgHaEK&pid=Api
+https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg
+https://images.pexels.com/photos/34950/pexels-photo.jpg
+https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg
+https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg
+
+Herfst:
+    'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
+    'url("https://mp.reshift.nl/zoom/26CC12C6205164375CE93F6C361EDEA6-herfst-in-de-lofoten.jpg?w=1132")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOukpltbTce_MJDTxN41IyiXmd2c6E-wOePA&s")',
+    'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
+    'url("https://img.freepik.com/premium-photo/bergtop-rustige-scene-herfst-schoonheid-natuur-kunst-gegenereerd-door-ai_24911-74285.jpg")',
+    'url("https://images.pexels.com/photos/803226/pexels-photo-803226.jpeg")',
+    'url("https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg")',
+    'url("https://img.freepik.com/vrije-photo/herfstlandschap-van-de-bosbouwweg_23-2151843623.jpg")',
+    'url("https://images.freeimages.com/images/large-previews/fab/tranquil-lake-at-sunset-0410-5697942.jpg?fmt=webp&w=500")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc1mXlnDQkG_I8NEKlUTYg9qYU2zq1RZt5QA&s")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.19k-fnCWgQRnvByDKjK11gHaEo&pid=Api")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.Fo57RXAJhYP57mknj83WDgHaEK&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.U60t8ABWzM4SDVmDfqSVngHaEK&pid=Api")',
+    'url("https://fotografieploegmv.b-cdn.net/wp-content/uploads/2022/01/10-Ideee%CC%88n-om-te-fotograferen-in-de-herfst-10-1024x475-1.jpg")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.jaSgYRdTkn9t-RPjh3CEegHaEx&pid=Api")',
+    'url("https://img.freepik.com/premium-photo/rustige-herfstavond-met-een-zachte-windvlaag-die-de-kleurrijke-bladeren-ritselt_971975-2518.jpg")',
+    'url("https://img.freepik.com/premium-photo/herfst-herfst-huisje-rustig-huis-hut-illustratie-digitale-kunst-concept-art_725906-2.jpg")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.XCM2PMQ0G7Ai7lzm_pEsxgHaEo&pid=Api")',
+    'url("https://png.pngtree.com/thumb_back/fh260/background/20230610/pngtree-autumn-hd-wallpapers-image_2959659.jpg")',
+    'url("https://img.freepik.com/premium-photo/rustige-scene-van-de-herfst-bos-generatieve-ai_549702-6559.jpg")',
+    'url("https://img.freepik.com/premium-photo/een-rustige-herfstlandschap-op-een-landelijke-weg-met-levendige-bomen_762139-12248.jpg")'
+
+
+Winter:
+const images = [
+    'url("https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg")',
+    'url("https://i.ytimg.com/vi/xUEQCoudd-I/maxresdefault.jpg")',
+    'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
+    'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
+    'url("https://tse4.mm.bing.net/th?id=OIP._gWvXBAIu9N8bp3AXHFTPQHaFj&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.RO_v9s514bPCjKIreI49pQHaE7&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.zept40N_XY96o6wTF8N5OwHaEo&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.M402E13q_Qomcb5-iNNc_wHaEK&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.i7eKef5iWWKAq36v574ErwHaEK&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.Ip6bd8xadPIm1elv8E5uegHaEo&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.9zKU_ehBl6tGXMS5BbDpMQHaEo&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.dRmAzy2wsgd60zckkJEOGgHaEo&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.WRU4P4GerVM2QUKPbdY8hgHaEo&pid=Api")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.k7EAYGHal8vfbgKKFXxhwAHaEK&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.71fpuxg49_GIPjsHOC_LEwHaEo&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.bwtN5tfXKs-TE7P-HJocBAHaEo&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.E7AT-rTMLkoWcoaKzn8UPwHaEK&pid=Api")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.Hp_HQqmbbEM2c1dcwnOMOgHaEK&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.eO9-AxYoxEDHpHX9a_o7PAHaFQ&pid=Api")'
+];
+
+Zomer:
+https://tse3.mm.bing.net/th?id=OIP.NgxxT8FDJslqLQQce1YjOgHaEK&pid=Api
+https://images.pexels.com/photos/1005417/pexels-photo-1005417.jpeg
+https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg
+https://images.pexels.com/photos/803226/pexels-photo-803226.jpeg
+https://i.ytimg.com/vi/xUEQCoudd-I/maxresdefault.jpg
+https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg
+https://tse3.mm.bing.net/th?id=OIP.RO_v9s514bPCjKIreI49pQHaE7&pid=Api
+https://tse3.mm.bing.net/th?id=OIP.0yG9c6vBHqLzLkFDkiH9IAHaEo&pid=Api
+https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg

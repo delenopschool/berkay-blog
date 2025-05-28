@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Screensaver - Berkay Blog</title>
+    <meta
+      name="keywords"
+      content="Berkay blog, blog, berkay, De berkay blog, berkay screensaver, screensaver, screensaver berkay blog"
+    />
+    <meta name="author" content="Berkay" />
+    <meta
+      name="description"
+      content="Een leuke blog met tips en tricks, gemaakt door Berkay"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.ibb.co/zRj6qQB/favicon.png"
+    />
+  </head>
+  <style>
+    div {
+      font-size: 4em;
+      height: 75px;
+      color: #ffffff;
+    }
+    #fullscreenModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+    .modal-content {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin: auto;
+    }
+    .modal-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .modal-buttons button {
+      padding: 10px;
+      margin: 0 10px;
+    }
+    body {
+      margin: 0;
+      cursor: none;
+    }
+    #yesButton {
+      cursor: pointer;
+    }
+    #noButton {
+      cursor: pointer;
+    }
+    .show-cursor {
+      cursor: default;
+    }
+    #clock {
+      font-size: 5em;
+    }
+    #date {
+      font-size: 2em;
+    }
+    .exit {
+      display: none;
+      z-index: 100000000;
+      cursor: pointer;
+    }
+
+    body {
+      margin: 0; /* Verwijder marges zodat de video het hele scherm vult */
+      overflow: hidden; /* Geen scrollbars */
+    }
+
+    #kerstVideo {
+      position: fixed; /* Zorg dat de video altijd vast zit op het scherm */
+      right: 0;
+      bottom: 0;
+      min-width: 100%; /* Zorg dat de breedte minimaal het scherm vult */
+      min-height: 100%; /* Zorg dat de hoogte minimaal het scherm vult */
+      width: 100%; /* Zet de breedte op 100% van het scherm */
+      height: 100%; /* Zet de hoogte op 100% van het scherm */
+      z-index: -2; /* Plaats de video achter andere elementen */
+      object-fit: cover; /* Zorg dat de video volledig het scherm vult zonder vervorming */
+    }
+  </style>
+  <body>
+    <div
+      id="exit"
+      class="exit"
+      style="float: right"
+      onclick="closeFullscreen();"
+    >
+      <img
+        src="https://i.ibb.co/PY4WLf7/kruis.png"
+        width="50px"
+        height="60px"
+      />
+    </div>
+    <div id="clock" style="font-family: verdana; color: black"></div>
+    <div id="date" style="font-family: verdana; color: black"></div>
+
+    <div id="fullscreenModal">
+      <div class="modal-content">
+        <div style="font-size: 20px; color: #000000">
+          Wil je de website in fullscreen bekijken? Dit is wel aanbevolen.<br />
+        </div>
+        <div style="font-size: 13px; color: #000000">
+          <a id="yesButton">Fullscreen</a
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+            id="noButton"
+            >Geen Fullscreen</a
+          >
+        </div>
+      </div>
+    </div>
+    <!--kerst-->
+    <video autoplay="true" muted loop="true" id="kerstVideo">
+      <source
+        src="https://cdn.glitch.me/2c2e284d-ed92-4522-aa6c-3d3f190f5234/video.mp4?v=1744648816711"
+      />
+      <!--enter video link in src-->
+      Your browser does not support HTML5 video.
+    </video>
+  </body>
+  <!--script voor klok en background verandering-->
+  <script>
+    //klok
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const year = now.getFullYear();
+      document.getElementById(
+        "clock"
+      ).textContent = `${hours}:${minutes}:${seconds}`;
+      document.getElementById("date").textContent = `${day}-${month}-${year}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+    //script voor muisverdwijning
+    let cursorTimeout;
+    var e = document.getElementById("exit");
+    document.addEventListener("mousemove", showCursor);
+
+    function showCursor() {
+      document.body.classList.add("show-cursor");
+      clearTimeout(cursorTimeout);
+      cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+      e.style.display = "block"; //show exit
+    }
+
+    function hideCursor() {
+      document.body.classList.remove("show-cursor");
+      e.style.display = "none"; //hide exit
+    }
+
+    // Initial call to hide the cursor after the page loads
+    cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+
+    //onClick exit
+    function closeFullscreen() {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        /* IE11 */
+        document.msExitFullscreen();
+      }
+    }
+
+    //script voor fullscreen
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = document.getElementById("fullscreenModal");
+      const yesButton = document.getElementById("yesButton");
+      const noButton = document.getElementById("noButton");
+
+      modal.style.display = "flex";
+
+      yesButton.addEventListener("click", function () {
+        if (document.documentElement.requestFullscreen) {
+          document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          // Firefox
+          document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          // Chrome, Safari and Opera
+          document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+          // IE/Edge
+          document.documentElement.msRequestFullscreen();
+        }
+        modal.style.display = "none";
+      });
+
+      noButton.addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+    });
+  </script>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        overflow: hidden;
+        background-color: #000;
+      }
+
+      .silver-text {
+        position: fixed;
+        left: -100%;
+        top: 50%;
+        font-size: 4em;
+        transform: translateY(-50%);
+        color: lime;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.5s;
+      }
+
+      .show-text {
+        opacity: 1;
+        animation: gold-glow 2s infinite alternate, slide-in 3s forwards;
+      }
+
+      @keyframes gold-glow {
+        0% {
+          text-shadow: 0 0 5px cyan;
+        }
+        100% {
+          text-shadow: 0 0 20px cyan, 0 0 30px cyan, 0 0 40px cyan,
+            0 0 50px cyan;
+        }
+      }
+
+      @keyframes slide-in {
+        0% {
+          left: -100%;
+        }
+        50% {
+          left: 30%;
+        }
+        100% {
+          left: 30%;
+        }
+      }
+
+      @keyframes slide-out {
+        0% {
+          left: 30%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .particle {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        animation: particle-animation 2s infinite;
+      }
+
+      .particle-silver {
+        background-color: lime;
+      }
+
+      .particle-gold {
+        background-color: #26C6DA;
+      }
+
+      @keyframes particle-animation {
+        0% {
+          transform: translate(0, 0);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(50px, 50px);
+          opacity: 0;
+        }
+      }
+
+      .changing-word {
+        display: inline-block;
+        transition: transform 0.6s ease-in-out;
+      }
+
+      .slide-out {
+        animation: slideOut 0.6s forwards;
+      }
+
+      .slide-in {
+        animation: slideIn 0.6s forwards;
+      }
+
+      @keyframes slideIn {
+        0% {
+          transform: translateY(100%);
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(0%);
+        }
+      }
+
+      @keyframes slideOut {
+        0% {
+          transform: translateY(0%);
+        }
+        100% {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="silverText1" class="silver-text">
+      Vrolijk Pasen
+      <span id="changingWord1" class="changing-word">iedereen!</span>
+    </div>
+    <script>
+    const showSilverText = (id, words) => {
+        const silverText = document.getElementById(id);
+        const changingWord = silverText.querySelector('.changing-word');
+        silverText.classList.add('show-text');
+        const slideSound = document.getElementById('slideSound');
+        // slideSound.play(); // Speel het geluid af
+
+        const particleCount = 250;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.classList.add(Math.random() < 0.5 ? 'particle-silver' : 'particle-gold');
+            particle.style.top = Math.random() * window.innerHeight + 'px';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(particle);
+        }
+
+        // Na 49 seconden: verwijder de particles en start de slide-out animatie
+        setTimeout(() => {
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => particle.remove());
+            silverText.style.animation = 'slide-out 3s forwards';
+        }, 49000);
+
+        let index = 0;
+
+        const changeWord = () => {
+            changingWord.classList.add('slide-out');
+            setTimeout(() => {
+                changingWord.textContent = words[index];
+                changingWord.classList.remove('slide-out');
+                changingWord.classList.add('slide-in');
+                index = (index + 1) % words.length;
+            }, 300);
+            setTimeout(() => {
+                changingWord.classList.remove('slide-in');
+            }, 900);
+        };
+
+        setInterval(changeWord, 2000);
+    };
+
+    const words1 = ["Bilal!", "Zayn!", "Rayan!", "Hendrik!", "Sirin!", "Setayesh!", "Chaolin!", "Charlotte!", "Mohamed!", "Raniya!", "Destan!", "Mads!", "Luka!", "Amina!", "Alais!", "Yuno!", "Liyana!", "Berkay!", "Lorena!", "Juf Amber!", "Zaky!", "Maksim!", "Juf Joleen!", "Suzie!", "iedereen!"];
+
+    const specificDateTime1 = new Date('2025-04-15T09:10:00'); // Stel de gewenste tijd in
+
+    let silverText1Shown = false;
+
+    const checkTime = () => {
+        const now = new Date();
+        console.log(`Huidige tijd: ${now}, Geplande tijd: ${specificDateTime1}`); // Debugging
+
+        if (!silverText1Shown && now >= specificDateTime1) {
+            showSilverText('silverText1', words1); // Voer de actie uit
+            silverText1Shown = true; // Zorg dat dit maar één keer gebeurt
+            clearInterval(checkInterval); // Stop de intervalcontrole
+        }
+    };
+
+    const checkInterval = setInterval(() => {
+        const now = new Date();
+        const delay = specificDateTime1.getTime() - now.getTime();
+        console.log(`Tijd tot actie: ${delay}ms`); // Debugging
+
+        if (delay <= 0) {
+            clearInterval(checkInterval); // Stop controle als tijd bereikt is
+            checkTime();
+        }
+    }, 1000); // Controleer elke seconde
+</script>
+
+  </body>
+</html>
+<script>
+  function detectMobile() {
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+      window.location.href = "https://berkay-blog.glitch.me/mobile.html";
+    }
+  }
+  window.onload = detectMobile;
+</script>
+<!--const words = ["Bilal!", "Zayn!", "Rayan!", "Hendrik!", "Sirin!", "Setayesh!", "Chaolin!", "Charlotte!", "Mohamed!", "Raniya!", "Destan!", "Mads!", "Luka!", "Amina!", "Alais!", "Yuno!", "Liyana!", "Berkay!", "Lorena!", "Zaky!", "Maksim!", "Juf Joleen!", "Suzie!",];-->
