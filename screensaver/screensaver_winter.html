@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Screensaver - Berkay Blog</title>
+<meta name="keywords" content="Berkay blog, blog, berkay, De berkay blog, berkay screensaver, screensaver, screensaver berkay blog">
+<meta name="author" content="Berkay">
+<meta name="description" content="Een leuke blog met tips en tricks, gemaakt door Berkay">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="https://i.ibb.co/zRj6qQB/favicon.png">
+</head>
+  <style>
+        div {
+            font-size: 4em;
+            height: 75px;
+            color: #ffffff;
+        }
+        .background {
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -10;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+        }
+        .background.active {
+            opacity: 1;
+            z-index: -1;
+        }
+        #fullscreenModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+        }
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .modal-buttons button {
+            padding: 10px;
+            margin: 0 10px;
+        }
+        body {
+            margin: 0;
+            cursor: none;
+        }
+        #yesButton {
+            cursor: pointer;
+        }
+        #noButton {
+            cursor: pointer;
+        }
+        .show-cursor {
+            cursor: default;
+        }
+        #clock {
+            font-size: 4em;
+        }
+        #date {
+            font-size: 2em;
+        }
+        .exit {
+            display: none;
+            z-index: 100000000;
+            cursor: pointer;
+        }
+        .widget {
+          position: fixed; /* Stick it to the bottom */
+          bottom: 0;
+        }
+  </style>
+<body>
+    <div id="exit" class="exit" style="float:right" onclick="closeFullscreen();">
+        <img src="https://i.ibb.co/PY4WLf7/kruis.png" width="50px" height="60px">
+    </div>
+    <div id="background1" class="background active"></div>
+    <div id="background2" class="background"></div>
+    <div id="clock" style="font-family: verdana; color: white"></div>
+    <div id="date" style="font-family: verdana; color: white"></div>
+    <div id="fullscreenModal">
+        <div class="modal-content">
+            <div style="font-size: 20px; color: #000000">Wil je de website in fullscreen bekijken? Dit is wel aanbevolen.<br></div>
+            <div style="font-size: 13px; color: #000000"><a id="yesButton">Fullscreen</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="noButton">Geen Fullscreen</a></div>
+        </div>
+    </div>
+    <a class="weatherwidget-io widget" href="https://forecast7.com/nl/51d924d48/rotterdam/" data-label_1="ROTTERDAM" data-label_2="WEER" data-icons="Climacons Animated" data-days="3" data-theme="dark" data-basecolor="rgba(0, 0, 0, 0.02)" data-mooncolor="rgba(238, 238, 238, 0)" >ROTTERDAM WEER</a>
+    <script>
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+    </script>
+</body>
+<script>
+//klok
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    document.getElementById('date').textContent = `${day}-${month}-${year}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+//slideshow
+let currentIndex = 0;
+const images = [
+    'url("https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg")',
+    'url("https://i.ytimg.com/vi/xUEQCoudd-I/maxresdefault.jpg")',
+    'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
+    'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
+    'url("https://tse4.mm.bing.net/th?id=OIP._gWvXBAIu9N8bp3AXHFTPQHaFj&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.RO_v9s514bPCjKIreI49pQHaE7&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.zept40N_XY96o6wTF8N5OwHaEo&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.M402E13q_Qomcb5-iNNc_wHaEK&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.i7eKef5iWWKAq36v574ErwHaEK&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.Ip6bd8xadPIm1elv8E5uegHaEo&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.9zKU_ehBl6tGXMS5BbDpMQHaEo&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.dRmAzy2wsgd60zckkJEOGgHaEo&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.WRU4P4GerVM2QUKPbdY8hgHaEo&pid=Api")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.k7EAYGHal8vfbgKKFXxhwAHaEK&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.71fpuxg49_GIPjsHOC_LEwHaEo&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.bwtN5tfXKs-TE7P-HJocBAHaEo&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.E7AT-rTMLkoWcoaKzn8UPwHaEK&pid=Api")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.Hp_HQqmbbEM2c1dcwnOMOgHaEK&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.eO9-AxYoxEDHpHX9a_o7PAHaFQ&pid=Api")'
+];
+
+// Helper function to shuffle the array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Pre-load images
+images.forEach(src => {
+    const img = new Image();
+    img.src = src.slice(5, -2); // Remove 'url("' at the start and '")' at the end
+});
+
+// Shuffle the images array
+shuffleArray(images);
+
+function changeBackground() {
+    currentIndex = (currentIndex + 1) % images.length;
+    const background1 = document.getElementById('background1');
+    const background2 = document.getElementById('background2');
+    const nextImage = images[currentIndex];
+    if (background1.classList.contains('active')) {
+        background2.style.backgroundImage = nextImage;
+        background2.classList.add('active');
+        background1.classList.remove('active');
+    } else {
+        background1.style.backgroundImage = nextImage;
+        background1.classList.add('active');
+        background2.classList.remove('active');
+    }
+}
+
+setInterval(changeBackground, 90000); // Na 90 seconden wisselen
+
+// Lade de eerste afbeelding onmiddellijk
+document.getElementById('background1').style.backgroundImage = images[0];
+document.getElementById('background2').style.backgroundImage = images[1];
+document.getElementById('background2').classList.add('active');
+
+changeBackground(); // Initiële aanroep voor het instellen van de eerste afbeelding
+
+</script>
+
+<script>
+// Muis cursor verwijderen
+let cursorTimeout;
+var e = document.getElementById('exit');
+document.addEventListener('mousemove', showCursor);
+
+function showCursor() {
+    document.body.classList.add('show-cursor');
+    clearTimeout(cursorTimeout);
+    cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+    e.style.display = 'block'; // Show exit
+}
+
+function hideCursor() {
+    document.body.classList.remove('show-cursor');
+    e.style.display = 'none'; // Hide exit
+}
+
+// Initial call to hide the cursor after the page loads
+cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+
+</script>
+    <!--script voor fullscreen-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('fullscreenModal');
+            const yesButton = document.getElementById('yesButton');
+            const noButton = document.getElementById('noButton');
+            
+            modal.style.display = 'flex';
+
+            yesButton.addEventListener('click', function() {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                    document.documentElement.msRequestFullscreen();
+                }
+                modal.style.display = 'none';
+            });
+
+            noButton.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+</html>
+<script> function detectMobile() { if (/Mobi|Android/i.test(navigator.userAgent)) { window.location.href = "https://berkay-blog.glitch.me/mobile.html"; } } window.onload = detectMobile; </script>

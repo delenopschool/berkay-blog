@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Screensaver - Berkay Blog</title>
+<meta name="keywords" content="Berkay blog, blog, berkay, De berkay blog, berkay screensaver, screensaver, screensaver berkay blog">
+<meta name="author" content="Berkay">
+<meta name="description" content="Een leuke blog met tips en tricks, gemaakt door Berkay">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="https://i.ibb.co/zRj6qQB/favicon.png">
+</head>
+  <style>
+        div {
+            font-size: 4em;
+            height: 75px;
+            color: #ffffff;
+        }
+        .background {
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -10;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+        }
+        .background.active {
+            opacity: 1;
+            z-index: -1;
+        }
+        #fullscreenModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 300px;
+            margin: auto;
+        }
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .modal-buttons button {
+            padding: 10px;
+            margin: 0 10px;
+        }
+        body {
+            margin: 0;
+            cursor: none;
+        }
+        #yesButton {
+            cursor: pointer;
+        }
+        #noButton {
+            cursor: pointer;
+        }
+        .show-cursor {
+            cursor: default;
+        }
+        #clock {
+            font-size: 4em;
+        }
+        #date {
+            font-size: 2em;
+        }
+        .exit {
+            display: none;
+            z-index: 100000000;
+            cursor: pointer;
+        }
+        .widget {
+          position: fixed; /* Stick it to the bottom */
+          bottom: 0;
+        }
+  </style>
+<body>
+    <div id="exit" class="exit" style="float:right" onclick="closeFullscreen();">
+        <img src="https://i.ibb.co/PY4WLf7/kruis.png" width="50px" height="60px">
+    </div>
+    <div id="background1" class="background active"></div>
+    <div id="background2" class="background"></div>
+    <div id="clock" style="font-family: verdana; color: white"></div>
+    <div id="date" style="font-family: verdana; color: white"></div>
+    <div id="fullscreenModal">
+        <div class="modal-content">
+            <div style="font-size: 20px; color: #000000">Wil je de website in fullscreen bekijken? Dit is wel aanbevolen.<br></div>
+            <div style="font-size: 13px; color: #000000"><a id="yesButton">Fullscreen</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="noButton">Geen Fullscreen</a></div>
+        </div>
+    </div>
+    <a class="weatherwidget-io widget" href="https://forecast7.com/nl/51d924d48/rotterdam/" data-label_1="ROTTERDAM" data-label_2="WEER" data-icons="Climacons Animated" data-days="3" data-theme="dark" data-basecolor="rgba(0, 0, 0, 0.02)" data-mooncolor="rgba(238, 238, 238, 0)" >ROTTERDAM WEER</a>
+    <script>
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+    </script>
+</body>
+<script>
+//klok
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = now.getFullYear();
+    document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+    document.getElementById('date').textContent = `${day}-${month}-${year}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+//slideshow
+let currentIndex = 0;
+const images = [
+    'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
+    'url("https://mp.reshift.nl/zoom/26CC12C6205164375CE93F6C361EDEA6-herfst-in-de-lofoten.jpg?w=1132")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOukpltbTce_MJDTxN41IyiXmd2c6E-wOePA&s")',
+    'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
+    'url("https://img.freepik.com/premium-photo/bergtop-rustige-scene-herfst-schoonheid-natuur-kunst-gegenereerd-door-ai_24911-74285.jpg")',
+    'url("https://images.pexels.com/photos/803226/pexels-photo-803226.jpeg")',
+    'url("https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg")',
+    'url("https://img.freepik.com/vrije-photo/herfstlandschap-van-de-bosbouwweg_23-2151843623.jpg")',
+    'url("https://images.freeimages.com/images/large-previews/fab/tranquil-lake-at-sunset-0410-5697942.jpg?fmt=webp&w=500")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc1mXlnDQkG_I8NEKlUTYg9qYU2zq1RZt5QA&s")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.19k-fnCWgQRnvByDKjK11gHaEo&pid=Api")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.Fo57RXAJhYP57mknj83WDgHaEK&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.U60t8ABWzM4SDVmDfqSVngHaEK&pid=Api")',
+    'url("https://fotografieploegmv.b-cdn.net/wp-content/uploads/2022/01/10-Ideee%CC%88n-om-te-fotograferen-in-de-herfst-10-1024x475-1.jpg")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.jaSgYRdTkn9t-RPjh3CEegHaEx&pid=Api")',
+    'url("https://img.freepik.com/premium-photo/rustige-herfstavond-met-een-zachte-windvlaag-die-de-kleurrijke-bladeren-ritselt_971975-2518.jpg")',
+    'url("https://img.freepik.com/premium-photo/herfst-herfst-huisje-rustig-huis-hut-illustratie-digitale-kunst-concept-art_725906-2.jpg")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.XCM2PMQ0G7Ai7lzm_pEsxgHaEo&pid=Api")',
+    'url("https://png.pngtree.com/thumb_back/fh260/background/20230610/pngtree-autumn-hd-wallpapers-image_2959659.jpg")',
+    'url("https://img.freepik.com/premium-photo/rustige-scene-van-de-herfst-bos-generatieve-ai_549702-6559.jpg")',
+    'url("https://img.freepik.com/premium-photo/een-rustige-herfstlandschap-op-een-landelijke-weg-met-levendige-bomen_762139-12248.jpg")'
+];
+
+// Helper function to shuffle the array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Pre-load images
+images.forEach(src => {
+    const img = new Image();
+    img.src = src.slice(5, -2); // Remove 'url("' at the start and '")' at the end
+});
+
+// Shuffle the images array
+shuffleArray(images);
+
+function changeBackground() {
+    currentIndex = (currentIndex + 1) % images.length;
+    const background1 = document.getElementById('background1');
+    const background2 = document.getElementById('background2');
+    const nextImage = images[currentIndex];
+    if (background1.classList.contains('active')) {
+        background2.style.backgroundImage = nextImage;
+        background2.classList.add('active');
+        background1.classList.remove('active');
+    } else {
+        background1.style.backgroundImage = nextImage;
+        background1.classList.add('active');
+        background2.classList.remove('active');
+    }
+}
+
+setInterval(changeBackground, 90000); // Na 90 seconden wisselen
+
+// Lade de eerste afbeelding onmiddellijk
+document.getElementById('background1').style.backgroundImage = images[0];
+document.getElementById('background2').style.backgroundImage = images[1];
+document.getElementById('background2').classList.add('active');
+
+changeBackground(); // Initiële aanroep voor het instellen van de eerste afbeelding
+
+</script>
+
+<script>
+// Muis cursor verwijderen
+let cursorTimeout;
+var e = document.getElementById('exit');
+document.addEventListener('mousemove', showCursor);
+
+function showCursor() {
+    document.body.classList.add('show-cursor');
+    clearTimeout(cursorTimeout);
+    cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+    e.style.display = 'block'; // Show exit
+}
+
+function hideCursor() {
+    document.body.classList.remove('show-cursor');
+    e.style.display = 'none'; // Hide exit
+}
+
+// Initial call to hide the cursor after the page loads
+cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+
+</script>
+    <!--script voor fullscreen-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('fullscreenModal');
+            const yesButton = document.getElementById('yesButton');
+            const noButton = document.getElementById('noButton');
+            
+            modal.style.display = 'flex';
+
+            yesButton.addEventListener('click', function() {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                    document.documentElement.msRequestFullscreen();
+                }
+                modal.style.display = 'none';
+            });
+
+            noButton.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+</html>
+<script> function detectMobile() { if (/Mobi|Android/i.test(navigator.userAgent)) { window.location.href = "https://berkay-blog.glitch.me/mobile.html"; } } window.onload = detectMobile; </script>
