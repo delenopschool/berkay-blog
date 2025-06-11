@@ -218,6 +218,19 @@ cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat 
 </script>
     <!--script voor fullscreen-->
     <script>
+                //onClick exit
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+        
+    //script voor fullscreen
+        
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('fullscreenModal');
             const yesButton = document.getElementById('yesButton');

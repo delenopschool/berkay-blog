@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Screensaver Nieuwjaar - Berkay Blog</title>
+<title>Screensaver Kerst - Berkay Blog</title>
 <meta name="keywords" content="Berkay blog, blog, berkay, De berkay blog, berkay screensaver, screensaver, screensaver berkay blog">
 <meta name="author" content="Berkay">
 <meta name="description" content="Een leuke blog met tips en tricks, gemaakt door Berkay">
@@ -13,22 +13,6 @@
             font-size: 4em;
             height: 75px;
             color: #ffffff;
-        }
-        .background {
-            width: 100%;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -10;
-            transition: opacity 1s ease-in-out;
-            opacity: 0;
-        }
-        .background.active {
-            opacity: 1;
-            z-index: -1;
         }
         #fullscreenModal {
             display: none;
@@ -74,7 +58,7 @@
             cursor: default;
         }
         #clock {
-            font-size: 4em;
+            font-size: 5em;
         }
         #date {
             font-size: 2em;
@@ -85,14 +69,21 @@
             cursor: pointer;
         }
         
+        #kerstVideo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            height: 100%;
+            width: 100%; 
+            z-index: -2;
+        }
     </style>
-</head>
 <body>
     <div id="exit" class="exit" style="float:right" onclick="closeFullscreen();">
-        <img src="https://i.ibb.co/PY4WLf7/kruis.png" width="50px" height="60px"></img>
+        <img src="https://i.ibb.co/PY4WLf7/kruis.png" width="50px" height="60px">
     </div>
-    <div id="background1" class="background"></div>
-    <div id="background2" class="background active"></div>
     <div id="clock" style="font-family: verdana; color: white"></div>
     <div id="date" style="font-family: verdana; color: white"></div>
     
@@ -102,6 +93,12 @@
             <div style="font-size: 13px; color: #000000"><a id="yesButton">Fullscreen</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="noButton">Geen Fullscreen</a></div>
         </div>
     </div>
+    <!--kerst-->
+    <video autoplay="true" muted loop="true" id="kerstVideo">
+        <source src="https://cdn.pixabay.com/video/2021/12/11/100317-656497399_large.mp4" type="video/*"><!--enter video link in src-->
+        Your browser does not support HTML5 video.
+    </video>
+    
 </body>
 <!--script voor klok en background verandering-->
     <script>
@@ -120,71 +117,9 @@
 
     setInterval(updateClock, 1000);
     updateClock();
-    
-//slideshow
-let currentIndex = 0;
-const images = [
-    'url("https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg")',
-    'url("https://i.ytimg.com/vi/xUEQCoudd-I/maxresdefault.jpg")',
-    'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
-    'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
-    'url("https://tse4.mm.bing.net/th?id=OIP._gWvXBAIu9N8bp3AXHFTPQHaFj&pid=Api")',
-    'url("https://tse3.mm.bing.net/th?id=OIP.RO_v9s514bPCjKIreI49pQHaE7&pid=Api")',
-    'url("https://tse3.mm.bing.net/th?id=OIP.zept40N_XY96o6wTF8N5OwHaEo&pid=Api")',
-    'url("https://tse4.mm.bing.net/th?id=OIP.M402E13q_Qomcb5-iNNc_wHaEK&pid=Api")',
-    'url("https://tse1.mm.bing.net/th?id=OIP.i7eKef5iWWKAq36v574ErwHaEK&pid=Api")',
-    'url("https://tse3.mm.bing.net/th?id=OIP.Ip6bd8xadPIm1elv8E5uegHaEo&pid=Api")',
-    'url("https://tse1.mm.bing.net/th?id=OIP.9zKU_ehBl6tGXMS5BbDpMQHaEo&pid=Api")',
-    'url("https://tse3.mm.bing.net/th?id=OIP.dRmAzy2wsgd60zckkJEOGgHaEo&pid=Api")',
-    'url("https://tse4.mm.bing.net/th?id=OIP.WRU4P4GerVM2QUKPbdY8hgHaEo&pid=Api")',
-    'url("https://tse2.mm.bing.net/th?id=OIP.k7EAYGHal8vfbgKKFXxhwAHaEK&pid=Api")',
-    'url("https://tse4.mm.bing.net/th?id=OIP.71fpuxg49_GIPjsHOC_LEwHaEo&pid=Api")',
-    'url("https://tse1.mm.bing.net/th?id=OIP.bwtN5tfXKs-TE7P-HJocBAHaEo&pid=Api")',
-    'url("https://tse4.mm.bing.net/th?id=OIP.E7AT-rTMLkoWcoaKzn8UPwHaEK&pid=Api")',
-    'url("https://tse2.mm.bing.net/th?id=OIP.Hp_HQqmbbEM2c1dcwnOMOgHaEK&pid=Api")',
-    'url("https://tse1.mm.bing.net/th?id=OIP.eO9-AxYoxEDHpHX9a_o7PAHaFQ&pid=Api")'
-];
-
-// Helper function to shuffle the array
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-// Pre-load images
-images.forEach(src => {
-    const img = new Image();
-    img.src = src.slice(5, -2); // Remove 'url("' at the start and '")' at the end
-});
-
-// Shuffle the images array
-shuffleArray(images);
-
-function changeBackground() {
-    currentIndex = (currentIndex + 1) % images.length;
-    const background1 = document.getElementById('background1');
-    const background2 = document.getElementById('background2');
-    const nextImage = images[currentIndex];
-    if (background1.classList.contains('active')) {
-        background2.style.backgroundImage = nextImage;
-        background2.classList.add('active');
-        background1.classList.remove('active');
-    } else {
-        background1.style.backgroundImage = nextImage;
-        background1.classList.add('active');
-        background2.classList.remove('active');
-    }
-}
-
-setInterval(changeBackground, 90000); //tijd in millieseconden tot volgend plaatje
-window.onload = changeBackground;
-</script>
-    <!--script voor muisverdwijning-->
-    <script>
+    //script voor muisverdwijning
         let cursorTimeout;
-        var e = document.getElementById('exit')
+        var e = document.getElementById('exit');
         document.addEventListener('mousemove', showCursor);
 
         function showCursor() {
@@ -202,21 +137,19 @@ window.onload = changeBackground;
         // Initial call to hide the cursor after the page loads
         cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
         
-        </script>
-        <script>
-        const exitNow = document.getElementById('exitNow');
-
-         exitNow.addEventListener('click', () => {
-                if (!document.fullscreenElement) {
-                } else {
-                    document.exitFullscreen()
-                        .then(() => console.log("Fullscreen modus verlaten"))
-                        .catch((err) => console.error("Error bij het verlaten van fullscreen modus:", err));
-                }
-            });
-    </script>
-    <!--script voor fullscreen-->
-    <script>
+                //onClick exit
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+        
+    //script voor fullscreen
+        
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('fullscreenModal');
             const yesButton = document.getElementById('yesButton');
@@ -243,7 +176,6 @@ window.onload = changeBackground;
         });
     </script>
 </html>
-<script> function detectMobile() { if (/Mobi|Android/i.test(navigator.userAgent)) { window.location.href = "https://berkay-blog-tips-tricks.on.drv.tw/mobile.html"; } } window.onload = detectMobile; </script>
 
 
 
@@ -259,6 +191,7 @@ window.onload = changeBackground;
     <style>
         body {
             overflow: hidden;
+            background-color: #000;
         }
 
         .silver-text {
@@ -373,16 +306,17 @@ window.onload = changeBackground;
     </style>
 </head>
 <body>
-    <div id="silverText" class="silver-text">Happy New Year!!!</div>
+    <div id="silverText1" class="silver-text">Vrolijk kerstfeest <span id="changingWord1" class="changing-word">iedereen!</span></div>
+    <div id="silverText2" class="silver-text" style="top: 60%;">Tot volgend jaar <span id="changingWord2" class="changing-word">iedereen!</span></div>
     <audio id="slideSound" src="https://cdn.freesound.org/previews/536/536245_10403690-lq.mp3"></audio> <!-- Zorg ervoor dat je hier het juiste pad naar je geluidsbestand hebt -->
     <!--<script>
-        const showSilverText = () => {
-            const silverText = document.getElementById('silverText');
-            const changingWord = document.getElementById('changingWord');
+        const showSilverText = (id, words) => {
+            const silverText = document.getElementById(id);
+            const changingWord = silverText.querySelector('.changing-word');
             silverText.classList.add('show-text');
             const slideSound = document.getElementById('slideSound');
-            slideSound.play(); // Speel het geluid af
-            const particleCount = 1000;
+            //slideSound.play(); // Speel het geluid af
+            const particleCount = 250;
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
@@ -397,7 +331,6 @@ window.onload = changeBackground;
                 silverText.style.animation = 'slide-out 3s forwards';
             }, 49000); // 50 sec. in miliseconden
 
-            const words = ["Bilal!", "Zayn!", "Rayan!", "Hendrik!", "Sirin!", "Setayesh!", "Chaolin!", "Charlotte!", "Mohamed!", "Raniya!", "Destan!", "Mads!", "Luka!", "Amina!", "Alais!", "Yuno!", "Liyana!", "Berkay!", "Lorena!", "Zaky!", "Maksim!", "Juf Joleen!", "Suzie!", "iedereen!"];
             let index = 0;
 
             const changeWord = () => {
@@ -416,30 +349,28 @@ window.onload = changeBackground;
             setInterval(changeWord, 2000);
         };
 
-        const specificDateTime = new Date('2024-12-04T17:30:00'); // Hier kan je de specifieke tijd en datum instellen '2024-12-18T17:30:00'
+        const words1 = ["Bilal!", "Zayn!", "Rayan!", "Hendrik!", "Sirin!", "Setayesh!", "Chaolin!", "Charlotte!", "Mohamed!", "Raniya!", "Destan!", "Mads!", "Luka!", "Amina!", "Alais!", "Yuno!", "Liyana!", "Berkay!", "Lorena!", "Zaky!", "Maksim!", "Juf Joleen!", "Suzie!", "iedereen!"];
+        const words2 = ["Bilal!", "Zayn!", "Rayan!", "Hendrik!", "Sirin!", "Setayesh!", "Chaolin!", "Charlotte!", "Mohamed!", "Raniya!", "Destan!", "Mads!", "Luka!", "Amina!", "Alais!", "Yuno!", "Liyana!", "Berkay!", "Lorena!", "Zaky!", "Maksim!", "Juf Joleen!", "Suzie!", "iedereen!"];
+
+        const specificDateTime1 = new Date('2024-12-19T14:45:00');
+        const specificDateTime2 = new Date('2024-12-19014:47:00'); // De tweede tekst verschijnt 5 minuten later
+
         const checkTime = () => {
             const now = new Date();
-            if (now >= specificDateTime) {
-                showSilverText();
-                clearInterval(interval);
+            if (now >= specificDateTime1) {
+                showSilverText('silverText1', words1);
+                clearInterval(interval1);
+            }
+            if (now >= specificDateTime2) {
+                showSilverText('silverText2', words2);
+                clearInterval(interval2);
             }
         };
-        const interval = setInterval(checkTime, 1000);
+
+        const interval1 = setInterval(checkTime, 1000);
+        const interval2 = setInterval(checkTime, 1000);
     </script>
 </body>
-</html>
-<script>
-        const exitNow = document.getElementById('exitNow');
-
-        exitNow.addEventListener('click', () => {
-            if (!document.fullscreenElement) {
-            } else {
-                document.exitFullscreen()
-                    .then(() => console.log("Fullscreen modus verlaten"))
-                    .catch((err) => console.error("Error bij het verlaten van fullscreen modus:", err));
-            }
-        });
-</script>-->
+</html>-->
 <script> function detectMobile() { if (/Mobi|Android/i.test(navigator.userAgent)) { window.location.href = "https://berkay-blog.glitch.me/mobile.html"; } } window.onload = detectMobile; </script>
-
 <!--const words = ["Bilal!", "Zayn!", "Rayan!", "Hendrik!", "Sirin!", "Setayesh!", "Chaolin!", "Charlotte!", "Mohamed!", "Raniya!", "Destan!", "Mads!", "Luka!", "Amina!", "Alais!", "Yuno!", "Liyana!", "Berkay!", "Lorena!", "Zaky!", "Maksim!", "Juf Joleen!", "Suzie!",];-->
