@@ -1,10 +1,39 @@
 Lente:
-https://tse4.mm.bing.net/th?id=OIP.EaUp-egMe_gd2Ej0l2zWDgHaFo&pid=Api
-https://tse3.mm.bing.net/th?id=OIP.NgxxT8FDJslqLQQce1YjOgHaEK&pid=Api
-https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg
-https://images.pexels.com/photos/34950/pexels-photo.jpg
-https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg
-https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg
+const images = [
+    'url("https://tse4.mm.bing.net/th?id=OIP.EaUp-egMe_gd2Ej0l2zWDgHaFo&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.NgxxT8FDJslqLQQce1YjOgHaEK&pid=Api")',
+    'url("https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg")',
+    'url("https://images.pexels.com/photos/34950/pexels-photo.jpg")',
+    'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
+    'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.SJXJsnbZqBGr93xz1OWXFwHaEK&pid=Api")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.qfTIFWqQcWH1aorFI7VR_QHaEK&pid=Api")',
+    'url("https://tse2.mm.bing.net/th?id=OIP.FxUe7uXthhkwGfuJskjk4gHaEo&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.3S1kj6Zvb2hB48OUcwNdpAHaE3&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.Vk7ZffpTpQ6yGz-XmsYfVwHaE7&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.RlHagUJ2ABwgIn9sqsHpSAHaEK&pid=Api")',
+    'url("https://tse3.mm.bing.net/th?id=OIP.xJ6oeMZNw1J6nZY1L6MDZgHaEK&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.KIdR4jXR_C8OzqDMIFxnwQHaEo&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.k339nYt749dMALm_PeT5YwHaFj&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.RKUYTaDDcc8RGyaCuF9SWgHaEK&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.RKUYTaDDcc8RGyaCuF9SWgHaEK&pid=Api")',
+    'url("https://tse4.mm.bing.net/th?id=OIP.gkB7y-KW9-rTHDOlqyQ5EgHaEo&pid=Api")',
+    'url("https://tse1.mm.bing.net/th?id=OIP.kz_RdeROmvtStQ8Ws4QgmwHaEo&pid=Api")',
+    'url("https://i.ibb.co/0R1mSkX6/IMG-20250324-WA0000-2.jpg")',
+    'url("https://wallpapers.com/images/hd/4k-spring-flowers-mountain-sun-3hs9mpc4vt1qsgj8.jpg")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG9z6dHo5ul38c3ldm9WfxP2OjL28TNha2iA&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS_AblDLGNP2aP6ZAKMgcpPB7uyEY0irzFXg&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLvtkTn5Cv4QuuBjra9Gy1RTukA813vyKsbw&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_gIoKEDi67AFconu1XIjnsOpHOpTiyg_Ovw&s")',
+    'url("https://vsthemes.org/uploads/posts/2021-05/1621872443_skrinshot-24-05-2021-21_06_25.webp")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ut2-8mF7t0z6Q5jur1xbJV2B96d7XMYZNg&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu4QwfwSiv8rDn3cMT0gbFmhiaPgSUIe1W2A&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnTCkanHbI6_3gxYIdlqqJs7avKSy379UNqg&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwhmQdYu6-xyNMO_ZM8QuWMGOKRG4b8u3Gpw&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT66548SuydAUXG4jcHx3JWQjVAWWLMbGy7cg&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQepdBhizVG4usi5e9-0ASSLu_ULaSKQ-I8SA&s")',
+    'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlTzX_OS_06MJ-0dqABUIQhwBhUDrLrIxpkg&s")'
+]
 
 Herfst:
     'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
