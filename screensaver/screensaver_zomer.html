@@ -107,7 +107,7 @@
     <div id="fullscreenModal">
         <div class="modal-content">
             <div style="font-size: 20px; color: #000000">Wil je de website in fullscreen bekijken? Dit is wel aanbevolen.<br></div>
-            <div style="font-size: 13px; color: #000000"><a id="yesButton">Fullscreen</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="noButton">Geen Fullscreen</a></div>
+            <div style="font-size: 13px; color: #000000"><a id="yesButton">Fullscreen</a>         <a id="noButton">Geen Fullscreen</a></div>
         </div>
     </div>
     <a class="weatherwidget-io widget" href="https://forecast7.com/nl/51d924d48/rotterdam/" data-label_1="ROTTERDAM" data-label_2="WEER" data-icons="Climacons Animated" data-days="3" data-theme="dark" data-basecolor="rgba(0, 0, 0, 0.02)" data-mooncolor="rgba(238, 238, 238, 0)" >ROTTERDAM WEER</a>
@@ -167,6 +167,7 @@ const images = [
   'url("https://tse3.mm.bing.net/th?id=OIP.RO_v9s514bPCjKIreI49pQHaE7&pid=Api")',
   'url("https://tse3.mm.bing.net/th?id=OIP.0yG9c6vBHqLzLkFDkiH9IAHaEo&pid=Api")',
   'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
+  // Voeg hier lege URL's toe om je array compleet te maken
   'url("")',
   'url("")',
   'url("")',
@@ -181,7 +182,28 @@ const images = [
   'url("")'
 ];
 
-// Helper function to shuffle the array
+// Fallback afbeelding URL
+const fallbackBackgroundUrl = "https://i.ibb.co/67Mp868R/ding.jpg";
+
+// Helper functie om te controleren of een afbeelding kan worden geladen
+function checkImage(src, onSuccess, onError) {
+    const img = new Image();
+    img.onload = onSuccess;
+    img.onerror = onError;
+    img.src = src.slice(5, -2); // Verwijder 'url("' en '")'
+}
+
+// Preload en controleer elke afbeelding
+images.forEach(src => {
+    checkImage(src, () => {
+        // Afbeelding succesvol geladen, geen actie nodig
+    }, () => {
+        // Afbeelding niet geladen, stel fallback background in
+        document.body.style.backgroundImage = `url('${fallbackBackgroundUrl}')`;
+    });
+});
+
+// Shuffle functie
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -189,20 +211,26 @@ function shuffleArray(array) {
     }
 }
 
-// Pre-load images
-images.forEach(src => {
-    const img = new Image();
-    img.src = src.slice(5, -2); // Remove 'url("' at the start and '")' at the end
-});
-
-// Shuffle the images array
+// Shuffle de array
 shuffleArray(images);
+
+let currentIndex = 0;
+
+// Initial achtergrond instellen
+if (images.length > 0 && images[0]) {
+    document.getElementById('background1').style.backgroundImage = images[0];
+}
+if (images.length > 1 && images[1]) {
+    document.getElementById('background2').style.backgroundImage = images[1];
+}
+document.getElementById('background2').classList.add('active');
 
 function changeBackground() {
     currentIndex = (currentIndex + 1) % images.length;
     const background1 = document.getElementById('background1');
     const background2 = document.getElementById('background2');
     const nextImage = images[currentIndex];
+
     if (background1.classList.contains('active')) {
         background2.style.backgroundImage = nextImage;
         background2.classList.add('active');
@@ -214,14 +242,10 @@ function changeBackground() {
     }
 }
 
-setInterval(changeBackground, 90000); // Na 90 seconden wisselen
+setInterval(changeBackground, 90000); // Wissel na 90 seconden
 
-// Lade de eerste afbeelding onmiddellijk
-document.getElementById('background1').style.backgroundImage = images[0];
-document.getElementById('background2').style.backgroundImage = images[1];
-document.getElementById('background2').classList.add('active');
-
-changeBackground(); // Initiële aanroep voor het instellen van de eerste afbeelding
+// Eerste afbeelding instellen
+changeBackground();
 
 </script>
 
@@ -234,58 +258,55 @@ document.addEventListener('mousemove', showCursor);
 function showCursor() {
     document.body.classList.add('show-cursor');
     clearTimeout(cursorTimeout);
-    cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
-    e.style.display = 'block'; // Show exit
+    cursorTimeout = setTimeout(hideCursor, 10000);
+    e.style.display = 'block';
 }
 
 function hideCursor() {
     document.body.classList.remove('show-cursor');
-    e.style.display = 'none'; // Hide exit
+    e.style.display = 'none';
 }
 
-// Initial call to hide the cursor after the page loads
-cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
-
+cursorTimeout = setTimeout(hideCursor, 10000);
 </script>
-    <!--script voor fullscreen-->
-    <script>
-                //onClick exit
-        function closeFullscreen() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
-                document.msExitFullscreen();
-            }
+<!--script voor fullscreen-->
+<script>
+    //onClick exit
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
         }
-        
+    }
+
     //script voor fullscreen
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('fullscreenModal');
-            const yesButton = document.getElementById('yesButton');
-            const noButton = document.getElementById('noButton');
-            
-            modal.style.display = 'flex';
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('fullscreenModal');
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
 
-            yesButton.addEventListener('click', function() {
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-                    document.documentElement.msRequestFullscreen();
-                }
-                modal.style.display = 'none';
-            });
+        modal.style.display = 'flex';
 
-            noButton.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
+        yesButton.addEventListener('click', function() {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            }
+            modal.style.display = 'none';
         });
-    </script>
+
+        noButton.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+    });
+</script>
 </html>
 <script> function detectMobile() { if (/Mobi|Android/i.test(navigator.userAgent)) { window.location.href = "https://berkay-blog.glitch.me/mobile.html"; } } window.onload = detectMobile; </script>
