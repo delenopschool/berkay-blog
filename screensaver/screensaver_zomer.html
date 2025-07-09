@@ -100,7 +100,7 @@
     <div id="exit" class="exit" style="float:right" onclick="closeFullscreen();">
         <img src="https://i.ibb.co/PY4WLf7/kruis.png" width="50px" height="60px">
     </div>
-    <div id="background1" class="background"></div>
+    <div id="background1" class="background active"></div>
     <div id="background2" class="background"></div>
     <div id="clock" style="font-family: verdana; color: white"></div>
     <div id="date" style="font-family: verdana; color: white"></div>
@@ -116,7 +116,7 @@
     </script>
 </body>
 <script>
-// Klok
+//klok
 function updateClock() {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
@@ -132,7 +132,7 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Slideshow
+//slideshow
 let currentIndex = 0;
 const images = [
   'url("https://tse3.mm.bing.net/th?id=OIP.NgxxT8FDJslqLQQce1YjOgHaEK&pid=Api")',
@@ -158,130 +158,134 @@ const images = [
   'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTodBnhctxrhCFau9ekYdfenABbQtmDShii-Q&s")',
   'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbqmqQWsxLapMNjgSBD6XERSJ6u2qHLIM9fg&s")',
   'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGCG51jZwV3UBP_tll_BahEzhgj7WmoRAP6w&s")',
-  // Herhaal of voeg meer toe indien nodig.
+  'url("https://tse3.mm.bing.net/th?id=OIP.NgxxT8FDJslqLQQce1YjOgHaEK&pid=Api")',
+  'url("https://images.pexels.com/photos/1005417/pexels-photo-1005417.jpeg")',
+  'url("https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg")',
+  'url("https://images.pexels.com/photos/803226/pexels-photo-803226.jpeg")',
+  'url("https://i.ytimg.com/vi/xUEQCoudd-I/maxresdefault.jpg")',
+  'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
+  'url("https://tse3.mm.bing.net/th?id=OIP.RO_v9s514bPCjKIreI49pQHaE7&pid=Api")',
+  'url("https://tse3.mm.bing.net/th?id=OIP.0yG9c6vBHqLzLkFDkiH9IAHaEo&pid=Api")',
+  'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")',
+  'url("")'
 ];
 
-// fallback afbeelding URL
-const fallbackBackgroundUrl = "https://i.ibb.co/67Mp868R/ding.jpg";
-
-// Controleer alle afbeeldingen en stel achtergrond in
-function checkAllImagesAndSetBackground() {
-  const checks = images.map(src => checkImage(src));
-  Promise.all(checks).then(results => {
-    const failed = results.some(r => r.success === false);
-    if (failed) {
-      // Bij falen, gebruik fallback
-      document.body.style.backgroundImage = `url('${fallbackBackgroundUrl}')`;
-    } else {
-      // Alle geslaagd, stel eerste afbeelding in
-      document.getElementById('background1').style.backgroundImage = results[0].src;
-      if (results.length > 1) {
-        document.getElementById('background2').style.backgroundImage = results[1].src;
-      }
+// Helper function to shuffle the array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
-  });
 }
 
-// Helper functie
-function checkImage(src) {
-  return new Promise((resolve) => {
+// Pre-load images
+images.forEach(src => {
     const img = new Image();
-    // Als src leeg is, is dat een fail
-    const cleanSrc = src.slice(5, -2);
-    if (!cleanSrc) {
-      resolve({ src: '', success: false });
-      return;
-    }
-    img.onload = () => resolve({ src: src, success: true });
-    img.onerror = () => resolve({ src: src, success: false });
-    img.src = cleanSrc;
-  });
-}
+    img.src = src.slice(5, -2); // Remove 'url("' at the start and '")' at the end
+});
 
-// Start controle bij pagina load
-checkAllImagesAndSetBackground();
-
-// Slideshow functie
-const backgrounds = document.querySelectorAll('.background');
+// Shuffle the images array
+shuffleArray(images);
 
 function changeBackground() {
-  currentIndex = (currentIndex + 1) % images.length;
-  const nextImage = images[currentIndex];
-  const bg1 = document.getElementById('background1');
-  const bg2 = document.getElementById('background2');
-
-  if (bg1.classList.contains('active')) {
-    bg2.style.backgroundImage = nextImage;
-    bg2.classList.add('active');
-    bg1.classList.remove('active');
-  } else {
-    bg1.style.backgroundImage = nextImage;
-    bg1.classList.add('active');
-    bg2.classList.remove('active');
-  }
-}
-
-// Wissel achtergrond elke 90 seconden
-setInterval(changeBackground, 90000);
-</script>
-<!-- Muis cursor -->
-<script>
-let cursorTimeout;
-function showCursor() {
-  document.body.classList.add('show-cursor');
-  clearTimeout(cursorTimeout);
-  cursorTimeout = setTimeout(hideCursor, 10000);
-  document.getElementById('exit').style.display = 'block';
-}
-function hideCursor() {
-  document.body.classList.remove('show-cursor');
-  document.getElementById('exit').style.display = 'none';
-}
-document.addEventListener('mousemove', showCursor);
-let cursorTimeoutId = setTimeout(hideCursor, 10000);
-</script>
-<!-- fullscreen script -->
-<script>
-function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
-  }
-}
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('fullscreenModal');
-  const yesBtn = document.getElementById('yesButton');
-  const noBtn = document.getElementById('noButton');
-
-  modal.style.display = 'flex';
-
-  yesBtn.addEventListener('click', () => {
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen();
-    } else if (document.documentElement.mozRequestFullScreen) {
-      document.documentElement.mozRequestFullScreen();
-    } else if (document.documentElement.webkitRequestFullscreen) {
-      document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) {
-      document.documentElement.msRequestFullscreen();
+    currentIndex = (currentIndex + 1) % images.length;
+    const background1 = document.getElementById('background1');
+    const background2 = document.getElementById('background2');
+    const nextImage = images[currentIndex];
+    if (background1.classList.contains('active')) {
+        background2.style.backgroundImage = nextImage;
+        background2.classList.add('active');
+        background1.classList.remove('active');
+    } else {
+        background1.style.backgroundImage = nextImage;
+        background1.classList.add('active');
+        background2.classList.remove('active');
     }
-    modal.style.display = 'none';
-  });
-  noBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-});
-</script>
-<!-- Detect mobiel -->
-<script>
-function detectMobile() {
-  if (/Mobi|Android/i.test(navigator.userAgent)) {
-    window.location.href = "https://berkay-blog.glitch.me/mobile.html";
-  }
 }
-window.onload = detectMobile;
+
+setInterval(changeBackground, 90000); // Na 90 seconden wisselen
+
+// Lade de eerste afbeelding onmiddellijk
+document.getElementById('background1').style.backgroundImage = images[0];
+document.getElementById('background2').style.backgroundImage = images[1];
+document.getElementById('background2').classList.add('active');
+
+changeBackground(); // Initiële aanroep voor het instellen van de eerste afbeelding
+
 </script>
+
+<script>
+// Muis cursor verwijderen
+let cursorTimeout;
+var e = document.getElementById('exit');
+document.addEventListener('mousemove', showCursor);
+
+function showCursor() {
+    document.body.classList.add('show-cursor');
+    clearTimeout(cursorTimeout);
+    cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+    e.style.display = 'block'; // Show exit
+}
+
+function hideCursor() {
+    document.body.classList.remove('show-cursor');
+    e.style.display = 'none'; // Hide exit
+}
+
+// Initial call to hide the cursor after the page loads
+cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+
+</script>
+    <!--script voor fullscreen-->
+    <script>
+                //onClick exit
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+        
+    //script voor fullscreen
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('fullscreenModal');
+            const yesButton = document.getElementById('yesButton');
+            const noButton = document.getElementById('noButton');
+            
+            modal.style.display = 'flex';
+
+            yesButton.addEventListener('click', function() {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+                    document.documentElement.msRequestFullscreen();
+                }
+                modal.style.display = 'none';
+            });
+
+            noButton.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        });
+    </script>
 </html>
+<script> function detectMobile() { if (/Mobi|Android/i.test(navigator.userAgent)) { window.location.href = "https://berkay-blog.glitch.me/mobile.html"; } } window.onload = detectMobile; </script>
