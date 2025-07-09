@@ -97,6 +97,8 @@
         }
   </style>
 <body>
+    <!--Fallback div voor error afbeelding, standaard verborgen-->
+    <div id="fallback" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-image:url('https://i.ibb.co/67Mp868R/ding.jpg'); background-size:cover; background-position:center; z-index:9999;"></div>
     <div id="exit" class="exit" style="float:right" onclick="closeFullscreen();">
         <img src="https://i.ibb.co/PY4WLf7/kruis.png" width="50px" height="60px">
     </div>
@@ -116,7 +118,7 @@
     </script>
 </body>
 <script>
-//klok
+//Klok
 function updateClock() {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
@@ -128,11 +130,10 @@ function updateClock() {
     document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
     document.getElementById('date').textContent = `${day}-${month}-${year}`;
 }
-
 setInterval(updateClock, 1000);
 updateClock();
 
-//slideshow
+// Slideshow
 let currentIndex = 0;
 const images = [
   'url("https://tse3.mm.bing.net/th?id=OIP.NgxxT8FDJslqLQQce1YjOgHaEK&pid=Api")',
@@ -157,31 +158,10 @@ const images = [
   'url("https://i.ibb.co/KjHK4frn/output-onlinepngtools.jpg")',
   'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTodBnhctxrhCFau9ekYdfenABbQtmDShii-Q&s")',
   'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbqmqQWsxLapMNjgSBD6XERSJ6u2qHLIM9fg&s")',
-  'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGCG51jZwV3UBP_tll_BahEzhgj7WmoRAP6w&s")',
-  'url("https://tse3.mm.bing.net/th?id=OIP.NgxxT8FDJslqLQQce1YjOgHaEK&pid=Api")',
-  'url("https://images.pexels.com/photos/1005417/pexels-photo-1005417.jpeg")',
-  'url("https://images.pexels.com/photos/247408/pexels-photo-247408.jpeg")',
-  'url("https://images.pexels.com/photos/803226/pexels-photo-803226.jpeg")',
-  'url("https://i.ytimg.com/vi/xUEQCoudd-I/maxresdefault.jpg")',
-  'url("https://i.ibb.co/7yCKxbh/1289a23e-6273-4ac7-9d44-425ba6d7060f.jpg")',
-  'url("https://tse3.mm.bing.net/th?id=OIP.RO_v9s514bPCjKIreI49pQHaE7&pid=Api")',
-  'url("https://tse3.mm.bing.net/th?id=OIP.0yG9c6vBHqLzLkFDkiH9IAHaEo&pid=Api")',
-  'url("https://www.natuurfotografie.nl/wp-content/uploads/2015/03/gewone-pad-portret-1024.jpg")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")',
-  'url("")'
+  'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGCG51jZwV3UBP_tll_BahEzhgj7WmoRAP6w&s")'
 ];
 
-// Helper function to shuffle the array
+// Helper functie om te shuffle
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -189,103 +169,128 @@ function shuffleArray(array) {
     }
 }
 
-// Pre-load images
+// Images preladen
 images.forEach(src => {
     const img = new Image();
-    img.src = src.slice(5, -2); // Remove 'url("' at the start and '")' at the end
+    img.src = src.slice(5, -2);
 });
 
-// Shuffle the images array
+// Shuffle de lijst
 shuffleArray(images);
 
+// Initiële achtergrond instellen
+const bg1 = document.getElementById('background1');
+const bg2 = document.getElementById('background2');
+
+bg1.style.backgroundImage = images[0];
+bg2.style.backgroundImage = images[1];
+bg2.classList.add('active');
+
+// Functie voor wisselen
 function changeBackground() {
     currentIndex = (currentIndex + 1) % images.length;
-    const background1 = document.getElementById('background1');
-    const background2 = document.getElementById('background2');
     const nextImage = images[currentIndex];
-    if (background1.classList.contains('active')) {
-        background2.style.backgroundImage = nextImage;
-        background2.classList.add('active');
-        background1.classList.remove('active');
+    if (bg1.classList.contains('active')) {
+        bg2.style.backgroundImage = nextImage;
+        bg2.classList.add('active');
+        bg1.classList.remove('active');
     } else {
-        background1.style.backgroundImage = nextImage;
-        background1.classList.add('active');
-        background2.classList.remove('active');
+        bg1.style.backgroundImage = nextImage;
+        bg1.classList.add('active');
+        bg2.classList.remove('active');
     }
 }
 
-setInterval(changeBackground, 90000); // Na 90 seconden wisselen
+// Wissel elke 90 seconden
+setInterval(changeBackground, 90000);
 
-// Lade de eerste afbeelding onmiddellijk
-document.getElementById('background1').style.backgroundImage = images[0];
-document.getElementById('background2').style.backgroundImage = images[1];
-document.getElementById('background2').classList.add('active');
+// Controleer afbeeldingen en toon fallback bij problemen
+const checks = images.map(src => {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve({src: src, success: true});
+        img.onerror = () => resolve({src: src, success: false});
+        img.src = src.slice(5, -2);
+    });
+});
 
-changeBackground(); // Initiële aanroep voor het instellen van de eerste afbeelding
+const fallbackDiv = document.getElementById('fallback');
 
+Promise.all(checks).then(results => {
+    const failed = results.some(r => r.success === false);
+    if (failed) {
+        // Toon fallback
+        fallbackDiv.style.display = 'block';
+        // Optioneel: achtergrond op 0 zetten of uitzetten
+        document.getElementById('background1').style.opacity = 0;
+        document.getElementById('background2').style.opacity = 0;
+    } else {
+        // Verberg fallback
+        fallbackDiv.style.display = 'none';
+    }
+});
 </script>
 
 <script>
-// Muis cursor verwijderen
+// Muis cursor
 let cursorTimeout;
-var e = document.getElementById('exit');
-document.addEventListener('mousemove', showCursor);
-
+const exitBtn = document.getElementById('exit');
 function showCursor() {
     document.body.classList.add('show-cursor');
     clearTimeout(cursorTimeout);
-    cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
-    e.style.display = 'block'; // Show exit
+    cursorTimeout = setTimeout(hideCursor, 10000);
+    exitBtn.style.display = 'block';
 }
-
 function hideCursor() {
     document.body.classList.remove('show-cursor');
-    e.style.display = 'none'; // Hide exit
+    exitBtn.style.display = 'none';
+}
+document.addEventListener('mousemove', showCursor);
+let cursorTimeoutId = setTimeout(hideCursor, 10000);
+</script>
+<!--fullscreen script-->
+<script>
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
 }
 
-// Initial call to hide the cursor after the page loads
-cursorTimeout = setTimeout(hideCursor, 10000); // Tijd in milliseconden voordat de cursor verdwijnt
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('fullscreenModal');
+    const yesBtn = document.getElementById('yesButton');
+    const noBtn = document.getElementById('noButton');
 
-</script>
-    <!--script voor fullscreen-->
-    <script>
-                //onClick exit
-        function closeFullscreen() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
-                document.msExitFullscreen();
-            }
+    modal.style.display = 'flex';
+
+    yesBtn.addEventListener('click', () => {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+            document.documentElement.msRequestFullscreen();
         }
-        
-    //script voor fullscreen
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('fullscreenModal');
-            const yesButton = document.getElementById('yesButton');
-            const noButton = document.getElementById('noButton');
-            
-            modal.style.display = 'flex';
+        modal.style.display = 'none';
+    });
 
-            yesButton.addEventListener('click', function() {
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) { // Firefox
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    document.documentElement.webkitRequestFullscreen();
-                } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
-                    document.documentElement.msRequestFullscreen();
-                }
-                modal.style.display = 'none';
-            });
-
-            noButton.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
-        });
-    </script>
+    noBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+});
+</script>
 </html>
-<script> function detectMobile() { if (/Mobi|Android/i.test(navigator.userAgent)) { window.location.href = "https://berkay-blog.glitch.me/mobile.html"; } } window.onload = detectMobile; </script>
+<script>
+function detectMobile() {
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+        window.location.href = "https://berkay-blog.glitch.me/mobile.html";
+    }
+}
+window.onload = detectMobile;
+</script>
