@@ -1,86 +1,171 @@
-<html>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
 <title>Home - Berkay Blog</title>
-<meta name="keywords" content="Berkay blog, blog, berkay, De berkay blog, home berkay blog, berkay, blog, tips tricks">
-<meta name="author" content="Berkay">
-<meta name="description" content="Een leuke blog met tips en tricks, gemaakt door Berkay.">
+
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon" href="https://i.ibb.co/zRj6qQB/favicon.png">
+<meta name="description" content="Een leuke blog met tips en tricks, gemaakt door Berkay.">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
 <style>
-.title {
+/* --- GLOBAL --- */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* --- HERO BANNER --- */
+.hero {
+    position: relative;
+    height: 60vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(70%) saturate(120%);
+    transform: scale(1.1);
+    animation: zoom 12s ease-in-out infinite alternate;
+}
+
+@keyframes zoom {
+    from { transform: scale(1.1); }
+    to   { transform: scale(1.25); }
+}
+
+/* --- HERO TEXT --- */
+.hero-text {
     position: absolute;
-    font-size: 70px;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    -webkit-text-stroke: 3px black;
-    color: lime;
-    text-shadow: 4px 4px 0 rgb(139, 128, 0)
-    z-index: 10;
+    color: white;
+    text-shadow: 0 0 25px rgba(0,0,0,0.8);
+    animation: fadeIn 2s ease forwards;
 }
 
-.p {
-  font-size: 30px;
+.hero-text h1 {
+    font-size: 60px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #00ffcc, #00aaff, #0077ff);
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
-.h2 {
-  font-size: 35px;
+.hero-text p {
+    font-size: 22px;
+    margin-top: -10px;
+    opacity: 0.9;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* --- CONTENT BOX --- */
+.content {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 40px rgba(0,0,0,0.4);
+    animation: floatUp 1.2s ease;
+}
+
+@keyframes floatUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    font-size: 34px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #00eaff, #00ff88);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+p {
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+/* --- LINKS --- */
+a h3 {
+    font-size: 26px;
+    color: #00d0ff;
+    transition: 0.3s;
+    text-shadow: 0 0 10px rgba(0,255,255,0.4);
+}
+
+a h3:hover {
+    color: #00ff99;
+    transform: translateX(10px);
+    text-shadow: 0 0 20px rgba(0,255,200,0.8);
+}
+
+/* --- FOOTER --- */
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color: black;
-  text-align: center;
+    margin-top: 60px;
+    padding: 20px;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
 }
 
 .hb {
-  color: red;
-}
-.button {
-  background: linear-gradient(45deg, #0000ff, #ff0000); /* Gradient van rood naar lichter rood */
-            background-size: 200% 100%; /* Zorgt ervoor dat de gradient groter is dan de knop */
-            border: none; /* Geen rand */
-            color: white; /* Witte tekst */
-            padding: 15px 32px; /* Opvulling */
-            text-align: center; /* Tekst centreren */
-            text-decoration: none; /* Geen onderstreping */
-            display: inline-block; /* Inline blok */
-            font-size: 16px; /* Lettergrootte */
-            margin: 4px 2px; /* Marges */
-            cursor: pointer; /* Cursor veranderen bij hover */
-            border-radius: 12px; /* Ronde hoeken */
-            transition: background-position 0.5s ease, transform 0.3s ease; /* Overgangseffecten */
-            background-position: right; /* Startpositie van de gradient */
-}
-.button:hover {
-            background-color: #00ff00; /* Kleur bij hover */
-            transform: scale(1.05); /* Knop iets vergroten bij hover */
-    }
-.note {
-  font-size: 26px;
-}
-.top-img {
-    z-index:"-10";
-    opacity: 1;
-    width: 100%;
-    height: 70%;
+    color: #ff4444;
+    text-shadow: 0 0 10px red;
 }
 </style>
+</head>
+
 <body>
-    <img src="https://i.ibb.co/qRLypgp/logo-blog.jpg" class="top-img" style="--object-fit:cover">
-    <!--welkom-->
-    <h2>Welkom op mijn blog, deze blogwebsite is gemaakt en geschreven door Berkay. Op deze website deel ik tips, tricks en handige tools. Deze hele blog is vooral voor kinderen gemaakt, die nog op school zitten. Dit betekend natuurlijk niet dat volwassenen de info niet mogen gebruiken. </h2>
-    <!--de linkjes-->
-    <h2>de linkje's naar de pagina's:</h2>
-    <a href="/screensaver/screensaver.html"><h3>De screensaver</h3></a>
-    <!--juridisch-->
-    <br><br><br><br><br><br><br><br><br><br><br><br>
-    <h4 style="text-align: center">De saaie (maar belangrijke) juridische info<br></h5>
-    <h5>Alle info van deze website mag gebruikt en gekopieerd worden. Dit geldt niet voor persoonlijke info, zoals namen. Afbeeldingen mogen ook gekopieerd worden, maar op eigen risico. Indien de originele eigenaar van de afbeeldingen bij u komt met het bericht dat de afbeeling auteursrechtelijk beschermt is, dan kan deze website alleen verantwoordelijk worden gesteld door de eigenaar.</h5>
-    <br><br>
-    <div class="footer">
-       <p>Blog gemaakt door Berkay | powered by <strong  class="hb">HB</strong></p>
+
+<!-- HERO BANNER -->
+<div class="hero">
+    <img src="https://i.ibb.co/HDWG8W91/images.jpg">
+    <div class="hero-text">
+        <h1>Berkay Blog</h1>
+        <p>Tips, tricks & tools voor iedereen</p>
     </div>
 </div>
+
+<!-- CONTENT -->
+<div class="content">
+    <h2>Welkom op mijn blog!</h2>
+    <p>
+        Deze blogwebsite is gemaakt en geschreven door Berkay.  
+        Op deze website deel ik tips, tricks en handige tools.  
+        De blog is vooral gericht op kinderen die nog op school zitten,  
+        maar volwassenen mogen de informatie natuurlijk ook gebruiken.
+    </p>
+
+    <h2>De linkjes naar de pagina's:</h2>
+    <a href="/screensaver/screensaver.html"><h3>➡ De screensaver</h3></a>
+
+    <h2>Juridische informatie</h2>
+    <a href="/legal.html"><h3>➡ Bekijk de juridische informatie</h3></a>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    Blog gemaakt door Berkay | powered by <strong class="hb">HB</strong>
+</div>
+
 </body>
 </html>
