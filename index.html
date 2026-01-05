@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
 <style>
-/* --- THEMA KLEUREN --- */
+/* THEMA VARIABELEN */
 :root {
     --bg: #f5f5f5;
     --text: #111;
@@ -28,7 +28,7 @@
     --shadow: rgba(0,0,0,0.5);
 }
 
-/* --- GLOBAL --- */
+/* GLOBAL */
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
@@ -37,17 +37,18 @@ body {
     transition: background 0.4s, color 0.4s;
 }
 
-/* --- THEME SWITCH BUTTON --- */
+/* THEMA KNOP */
 .theme-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
+    z-index: 9999;
     background: var(--card);
-    backdrop-filter: blur(10px);
     padding: 10px 18px;
     border-radius: 30px;
     cursor: pointer;
     font-weight: 600;
+    backdrop-filter: blur(10px);
     box-shadow: 0 0 15px var(--shadow);
     transition: 0.3s;
 }
@@ -56,7 +57,7 @@ body {
     transform: scale(1.07);
 }
 
-/* --- HERO --- */
+/* HERO */
 .hero {
     position: relative;
     height: 60vh;
@@ -99,7 +100,7 @@ body {
     opacity: 0.9;
 }
 
-/* --- CONTENT --- */
+/* CONTENT */
 .content {
     max-width: 900px;
     margin: 40px auto;
@@ -128,7 +129,7 @@ a h3:hover {
     transform: translateX(10px);
 }
 
-/* --- FOOTER --- */
+/* FOOTER */
 .footer {
     margin-top: 60px;
     padding: 20px;
